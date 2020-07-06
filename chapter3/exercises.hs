@@ -30,3 +30,9 @@ exercise3OtherMore x = drop 4 (take 5 x)
 -- "Curry is awesome!" --> "awesome!"
 exercise4 :: String -> String
 exercise4 x = drop 9 x
+
+thirdLetter :: String -> Char
+thirdLetter x = x !! 2
+
+letterIndex :: Int -> Char
+letterIndex x = "Curry is awesome" !! x
