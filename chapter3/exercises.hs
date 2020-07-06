@@ -21,6 +21,9 @@ exercise3 x = x !! 4
 exercise3Other :: String -> Char
 exercise3Other x = head (drop 4 x)
 
+exercise3Infix :: [Char] -> Char
+exercise3Infix x = head $ drop 4 $ x
+
 exercise3OtherMore :: [Char] -> [Char]
 exercise3OtherMore x = drop 4 (take 5 x)
 
