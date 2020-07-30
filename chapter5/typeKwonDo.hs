@@ -44,3 +44,9 @@ munge :: (a -> b)
       -> a
       -> c
 munge f g w = fst $ g $ f w
+
+munge' :: (a -> b)
+       -> (b -> (c, d))
+       -> a
+       -> c
+munge' f g w = fst . g . f $ w
