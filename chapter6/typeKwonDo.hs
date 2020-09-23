@@ -11,4 +11,4 @@ arith :: Num b
       -> a
       -> b
 
-arith f x y = f y
+arith f x y = f y + fromInteger x
