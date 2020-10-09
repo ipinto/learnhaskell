@@ -27,6 +27,9 @@ foldBool' x y z
 g :: (a -> b) -> (a, c) -> (b, c)
 g f x = (f . fst $ x, snd x)
 
+g' :: (a -> b) -> (a, c) -> (b, c)
+g' f (a, c) = (f a, c)
+
 -- 4.
 
 roundTrip :: (Show a, Read a) => a -> a
