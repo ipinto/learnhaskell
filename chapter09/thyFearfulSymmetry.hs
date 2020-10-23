@@ -11,8 +11,14 @@ myWords a = go a [] :: [String]
           | dropWhile (/=' ') a' == "" = acc ++ [a']
           | otherwise = go (tail $ dropWhile (/=' ') a') (acc ++ [takeWhile (/=' ') a'])
 
-main1 :: IO ()
-main1 = print $ myWords "This is a test"
+myWords' :: String -> [String]
+myWords' "" = []
+myWords' (' ' : xs) = myWords' xs
+myWords' phrase = takeWhile (/= ' ') phrase : myWords' (dropWhile (/= ' ') phrase)
+
+main1 = do
+      print $ myWords "This is a test"
+      print $ myWords' "This is a test"
 
 -- 2. Next, write a function that takes a string and returns a list of strings, using newline separators
 -- to break up the string
@@ -30,6 +36,11 @@ myLines a = go a [] :: [String]
           | dropWhile (/='\n') a' == "" = acc ++ [a']
           | otherwise = go (tail $ dropWhile (/='\n') a') (acc ++ [takeWhile (/='\n') a'])
 
+myLines' :: String -> [String]
+myLines' "" = []
+myLines' ('\n' : xs) = myLines' xs
+myLines' phrase = takeWhile (/= '\n') phrase : myLines' (dropWhile (/= '\n') phrase)
+
 shouldEqual = 
       [ "Tyger Tyger, burning bright"
       , "In the forests of the night"
@@ -37,12 +48,9 @@ shouldEqual =
       , "Could frame thy fearful symmetry?"
       ]
 
-main2 :: IO ()
-main2 =
-      print $
-      "Are they equal? "
-      ++ show (myLines sentences
-               == shouldEqual)
+main2 = do
+      print $ "Are they equal? " ++ show (myLines sentences == shouldEqual)
+      print $ "Are they equal? " ++ show (myLines' sentences == shouldEqual)
 
 -- 3. Try writing a new function that parameterizes the character you’re breaking the string
 -- argument on and rewrite myWords and myLines using that parameter.
@@ -53,9 +61,14 @@ myGeneric c a = go a [] :: [String]
           | dropWhile (/=c) a' == "" = acc ++ [a']
           | otherwise = go (tail $ dropWhile (/=c) a') (acc ++ [takeWhile (/=c) a'])
 
+myGeneric' :: Char -> String -> [String]
+myGeneric' _ "" = []
+myGeneric' a (x : xs)
+  | x == a = myGeneric' a xs
+  | otherwise = takeWhile (/= a) (x : xs) : myGeneric' a (dropWhile (/= a) (x : xs))
+
 main3 = do
    print $ myGeneric ' ' "This is a test"
-   print $
-      "Are they equal? "
-      ++ show (myGeneric '\n' sentences
-               == shouldEqual)
+   print $ "Are they equal? " ++ show (myGeneric '\n' sentences == shouldEqual)
+   print $ myGeneric' ' ' "This is a test"
+   print $ "Are they equal? " ++ show (myGeneric' '\n' sentences == shouldEqual)
