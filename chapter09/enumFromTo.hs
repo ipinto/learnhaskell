@@ -26,3 +26,8 @@ eftChar a b
       | a == b = [a]
       | otherwise = a : eftChar (succ a) b
 
+eft :: (Ord a, Enum a) => a -> a -> [a]
+eft a b
+  | a > b = []
+  | a == b = [b]
+  | otherwise = a : eft (succ a) b
