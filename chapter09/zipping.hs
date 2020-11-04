@@ -17,7 +17,7 @@ myZipWith f (x:xs) (y:ys) = f x y : myZipWith f xs ys
 -- 3. Rewrite your zip in terms of the zipWith you wrote.
 
 myZip' :: [a] -> [b] -> [(a, b)]
-myZip' xs ys = myZipWith (,) xs ys
+myZip' = myZipWith (,)
 
 main = do
    print $ myZip [1, 2, 3] [4, 5, 6, 7]
